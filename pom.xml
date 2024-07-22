@@ -42,22 +42,25 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <!-- Spring Boot Maven Plugin for packaging the application -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+   <build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <mainClass>DevopsIntegrationApplication</mainClass>
+            </configuration>
+        </plugin>
 
-            <!-- Git Commit ID Plugin for embedding Git commit information -->
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <version>4.0.0</version> <!-- Specify the plugin version -->
-            </plugin>
-        </plugins>
-        <finalName>devops-integration</finalName>
-    </build>
+        <!-- Git Commit ID Plugin for embedding Git commit information -->
+        <plugin>
+            <groupId>pl.project13.maven</groupId>
+            <artifactId>git-commit-id-plugin</artifactId>
+            <version>4.0.0</version> <!-- Specify the plugin version -->
+        </plugin>
+    </plugins>
+    <finalName>devops-integration</finalName>
+</build>
+
 
 </project>
