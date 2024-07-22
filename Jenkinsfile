@@ -7,13 +7,13 @@ pipeline {
         stage('Build Maven') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/abishekrosin/devops-automation']]])
-                bat 'mvn clean package' // Use 'sh' if Jenkins is running on Unix-like systems
+                bat 'mvn clean package'
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                    bat 'docker build -t abishekrosin/devops-integration .' // Use 'sh' if Jenkins is running on Unix-like systems
+                    bat 'docker build -t abishekrosin/devops-integration .'
                 }
             }
         }
@@ -21,9 +21,9 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-pwd', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%' // Use 'sh' if Jenkins is running on Unix-like systems
+                        bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
                     }
-                    bat 'docker push abishekrosin/devops-integration' // Use 'sh' if Jenkins is running on Unix-like systems
+                    bat 'docker push abishekrosin/devops-integration'
                 }
             }
         }
