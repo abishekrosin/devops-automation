@@ -20,7 +20,9 @@ pipeline {
         stage('Push Image to Hub') {
             steps {
                 script {
-                    bat 'docker login' // No need for username and password since we're using the credential store
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-pwd', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%' // Use 'sh' if Jenkins is running on Unix-like systems
+                    }
                     bat 'docker push abishekrosin/devops-integration' // Use 'sh' if Jenkins is running on Unix-like systems
                 }
             }
